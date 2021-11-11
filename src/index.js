@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import Example from './example.vue'
+import MainComponent from './main.vue'
 
 const app = new Vue({
     el: '#app',
     components: {
-        Example,
+        MainComponent,
     },
-    template: "<example/>",
+    template: "<main-component/>",
 })
