@@ -9,7 +9,7 @@
 <script>
 import axios from "axios";
 
-const endpoint = 'http://localhost:8080/test.txt'
+const endpoint = 'http://aiit-group5-2021.s3-website-ap-northeast-1.amazonaws.com/origin/record.txt'
 
 export default {
   data: () => ({
