@@ -24,4 +24,5 @@ npm run start
 npm run prod
 ```
 
-を実行後、 `public/index.html` と、生成された `public/bundle.js` をサーバにアップロードしてください。
+を実行後、 `public/index.html` と、生成された `public/bundle.js` をサーバにアップロードしてください。  
+その後、CloudFrontのキャッシュを削除してください。
