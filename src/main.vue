@@ -4,16 +4,18 @@
       <h1>Realtime Text</h1>
     </header>
     <div class="container">
-      <div class="container__item">
-        <p class="text">
-          {{ realtimeOriginText }}
-        </p>
-      </div>
-      <div class="container__item">
-        <p class="text">
-          {{ realtimeTranslatedText }}
-        </p>
-      </div>
+      <template v-for="text in textList">
+        <div class="container__item">
+          <p class="text">
+            {{ text.origin }}
+          </p>
+        </div>
+        <div class="container__item">
+          <p class="text">
+            {{ text.translated }}
+          </p>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -21,30 +23,37 @@
 <script>
 import axios from "axios";
 
-const originEndpoint = 'https://group5.a2136km.com/origin/record.txt'
-const translatedEndpoint = 'https://group5.a2136km.com/translated/record.txt'
-// const originEndpoint = 'http://localhost:8080/origin/test.txt'
-// const translatedEndpoint = 'http://localhost:8080/translated/test.txt'
+const endpoint = 'https://c0gm3sfkl4.execute-api.ap-northeast-1.amazonaws.com/apiv1'
+// const endpoint = 'http://localhost:8080//response.json'
 
 export default {
   data: () => ({
-    realtimeOriginText: '',
-    realtimeTranslatedText: '',
+    textList: [],
   }),
 
   mounted() {
-    axios.get(originEndpoint)
-        .then(response => (this.realtimeOriginText = response.data))
-    axios.get(translatedEndpoint)
-        .then(response => (this.realtimeTranslatedText = response.data))
+    axios.get(endpoint)
+        .then(response => {
+          this.textList = (response.data?.body || [])
+              .sort((one, another) => one.date - another.date)
+              .map(item => ({
+                origin: item.origin,
+                translated: item.translated
+              }))
+        })
 
     setInterval(() => {
-      axios.get(originEndpoint)
-          .then(response => (this.realtimeOriginText = response.data))
-      axios.get(translatedEndpoint)
-          .then(response => (this.realtimeTranslatedText = response.data))
+      axios.get(endpoint)
+          .then(response => {
+            this.textList = (response.data?.body || [])
+                .sort((one, another) => one.date - another.date)
+                .map(item => ({
+                  origin: item.origin,
+                  translated: item.translated
+                }))
+          })
     }, 3 * 1000)
-  }
+  },
 }
 </script>
 
@@ -56,14 +65,13 @@ export default {
 }
 
 .container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 50% auto;
   width: 80%;
   min-width: 640px;
   margin: 0 auto;
 
   &__item {
-    flex-basis: 50%;
     padding-left: 4px;
     padding-right: 4px;
   }
