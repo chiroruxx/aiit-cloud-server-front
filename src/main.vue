@@ -52,7 +52,7 @@ export default {
                   translated: item.translated
                 }))
           })
-    }, 3 * 1000)
+    }, 1 * 1000)
   },
 }
 </script>
