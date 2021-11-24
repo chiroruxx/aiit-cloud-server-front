@@ -37,7 +37,7 @@
 <script>
 import axios from "axios";
 
-const endpoint = 'https://c0gm3sfkl4.execute-api.ap-northeast-1.amazonaws.com/apiv1'
+const endpoint = 'http://c0gm3sfkl4.execute-api.ap-northeast-1.amazonaws.com/apiv1'
 // const endpoint = 'http://localhost:8080//response.json'
 
 export default {
@@ -68,7 +68,7 @@ export default {
                   translated: item.translated
                 }))
           })
-    }, 1000)
+    }, 0.5 * 1000)
   },
   computed: {
     startTranscribeUrl() {
